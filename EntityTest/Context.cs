@@ -23,7 +23,7 @@ namespace EntityTest
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>(); 
             Database.SetInitializer<Context>(null);
             base.OnModelCreating(modelBuilder);
         }

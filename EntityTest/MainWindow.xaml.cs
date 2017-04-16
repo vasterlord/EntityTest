@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EntityTest.Model;
 using System.Data.SqlClient;
+using System.Data.Entity;
 
 namespace EntityTest
 {
@@ -46,21 +47,27 @@ namespace EntityTest
            // {
             using (var context = new Context())
             {
-                var countryOne = new CountryProducing()
-                {
-                    CountryName = "Japan" 
-                };
-                var countryTwo = new CountryProducing()
-                {
-                    CountryName = "Germany"
-                };
-                var countryThird = new CountryProducing()
-                {
-                    CountryName = "France"
-                }; 
-                context.CountryProducings.Add(countryOne);
-                context.CountryProducings.Add(countryTwo);
-                context.CountryProducings.Add(countryThird);
+                //var countryOne = new CountryProducing()
+                //{
+                //    CountryName = "Japan" 
+                //};
+                //var countryTwo = new CountryProducing()
+                //{
+                //    CountryName = "Germany"
+                //};
+                //var countryThird = new CountryProducing()
+                //{
+                //    CountryName = "France"
+                //}; 
+                //context.CountryProducings.Add(countryOne);
+                //context.CountryProducings.Add(countryTwo);
+                //context.CountryProducings.Add(countryThird);
+                //context.SaveChanges();   
+                int id = Convert.ToInt32(textBox.Text);
+                var updatedcountry = context.CountryProducings.FirstOrDefault(country => country.Id == id);
+                context.CountryProducings.Attach(updatedcountry);
+                context.Entry(updatedcountry).State = EntityState.Modified;
+                updatedcountry.CountryName = textBox1.Text;
                 context.SaveChanges();
                 var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
                 dataGrid.ItemsSource = countryProducing;
