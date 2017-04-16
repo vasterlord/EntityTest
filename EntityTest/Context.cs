@@ -13,11 +13,13 @@ namespace EntityTest
     {
         public Context() : base("DBConnection")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
             Database.SetInitializer(new CreateDatabaseIfNotExists<Context>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<Context>());
         }
 
         public DbSet<CountryProducing> CountryProducings { get; set; }
+        public DbSet<CarBrand> CarBrands { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.ObjectModel;
 
 namespace EntityTest.Model
 {
-   public class CountryProducing
+    public class CarBrand
     {
-        private string _country;
+        private string _brand;
+        
         public int Id { get; set; } 
-        /// <summary>
-        /// Question: How disable auto sorting after create unique key
-        /// </summary>
+        public int CountryProducingId { get; set; }
         [ConcurrencyCheck]
         [Index(IsUnique = true)]
         [Required(ErrorMessage = "Field can't be null")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "The length of the string must be between 3 and 50 characters")]
-        public string CountryName
-        {
+        public string Brand {
             get
             {
-                return _country;
+                return _brand;
             }
             set
             {
-                _country = value;
+                _brand = value;
             }
-        } 
+        }  
+
+         public CountryProducing CountryProducings { get; set; } 
     }
 }

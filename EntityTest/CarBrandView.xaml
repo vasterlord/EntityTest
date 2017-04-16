@@ -1,11 +1,11 @@
-﻿<Window x:Class="EntityTest.MainWindow"
+﻿<Window x:Class="EntityTest.CarBrandView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EntityTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" ResizeMode="NoResize"
+        Title="CarBrandView"  Height="350" Width="525" ResizeMode="NoResize"
         WindowStyle="ToolWindow" Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="button"
@@ -18,7 +18,7 @@
         <Button x:Name="Car_Model"
                 Width="167"
                 Height="53"
-                Margin="10,256,0,0"
+                Margin="243,225,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Car_Model_Click"
@@ -54,11 +54,13 @@
             </DataGrid.Effect>
         </DataGrid>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="67,177,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.Id,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="49" IsEnabled="False"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.CountryName, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.CarBrand, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,184,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,225,0,0" TextWrapping="Wrap" Text="Country" VerticalAlignment="Top"/>
-        <Button x:Name="button1" Content="New" HorizontalAlignment="Left" Margin="224,272,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Button x:Name="button2" Content="delete" HorizontalAlignment="Left" Margin="340,241,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
-        <Button x:Name="button3" Content="Button" HorizontalAlignment="Left" Margin="237,218,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,225,0,0" TextWrapping="Wrap" Text="Car brand" VerticalAlignment="Top"/>
+        <Button x:Name="button1" Content="New" HorizontalAlignment="Left" Margin="432,185,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="button2" Content="delete" HorizontalAlignment="Left" Margin="432,223,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <Button x:Name="button3" Content="Button" HorizontalAlignment="Left" Margin="335,294,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,256,0,0" TextWrapping="Wrap" Text="Country" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox" Text="{Binding ElementName=dataGrid, Path=SelectedItem.Country, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="67,250,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

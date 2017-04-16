@@ -33,26 +33,30 @@ namespace EntityTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            using (var context = new Context())
+            { 
+                var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
+                dataGrid.ItemsSource = countryProducing;
+            }
         }
 
         private void Car_Model_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+           // try
+           // {
             using (var context = new Context())
             {
                 var countryOne = new CountryProducing()
                 {
-                    Country = "Japan"
+                    CountryName = "Japan" 
                 };
                 var countryTwo = new CountryProducing()
                 {
-                    Country = "Germany"
+                    CountryName = "Germany"
                 };
                 var countryThird = new CountryProducing()
                 {
-                    Country = "France"
+                    CountryName = "France"
                 }; 
                 context.CountryProducings.Add(countryOne);
                 context.CountryProducings.Add(countryTwo);
@@ -61,11 +65,11 @@ namespace EntityTest
                 var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
                 dataGrid.ItemsSource = countryProducing;
             }
-            }
-            catch (Exception ex)
-            {
-                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -74,7 +78,7 @@ namespace EntityTest
             {
                 var countryThird = new CountryProducing()
                 {
-                    Country = "Chinese"
+                    CountryName = textBox1.Text
                 };
                 context.CountryProducings.Add(countryThird);
                 context.SaveChanges(); 
@@ -82,7 +86,37 @@ namespace EntityTest
                 dataGrid.ItemsSource = countryProducing;
             }
         }
-     }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            textBox.Clear();
+            textBox1.Clear();
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new Context())
+            {
+                var deletedcountry = context.CountryProducings.FirstOrDefault(country => country.CountryName == textBox1.Text);
+                if (deletedcountry != null)
+                {
+                    context.CountryProducings.Attach(deletedcountry);
+                    context.CountryProducings.Remove(deletedcountry);
+                    context.SaveChanges();
+                    var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
+                    dataGrid.ItemsSource = countryProducing;
+                    dataGrid.Items.Refresh();
+                }
+            }
+           
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            CarBrandView car = new CarBrandView();
+            car.ShowDialog();
+        }
+    }
     }
 
 
