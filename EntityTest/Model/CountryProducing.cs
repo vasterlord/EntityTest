@@ -16,11 +16,11 @@ namespace EntityTest.Model
         public int Id { get; set; }
          
         /// <summary>
-        /// How disable auto sorting after create unique key
+        /// Question: How disable auto sorting after create unique key
         /// </summary>
         [ConcurrencyCheck]
         [Index(IsUnique = true)]
-        [Required(ErrorMessage = "Field can not be null")]
+        [Required(ErrorMessage = "Field can't be null")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "The length of the string must be between 3 and 50 characters")]
         public string Country
         {
