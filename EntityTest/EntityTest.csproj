@@ -127,7 +127,7 @@
     <Compile Include="CarBrandView.xaml.cs">
       <DependentUpon>CarBrandView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Context.cs" />
+    <Compile Include="Data\Context.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

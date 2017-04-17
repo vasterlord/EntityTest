@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EntityTest.Model;
+using EntityTest.Data;
 using System.Data.SqlClient;
 using System.Data.Entity;
 

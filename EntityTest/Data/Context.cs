@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityTest
+namespace EntityTest.Data
 {
     public class Context : DbContext
     {
