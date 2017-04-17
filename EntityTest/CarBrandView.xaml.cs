@@ -17,6 +17,8 @@ using EntityTest.Data;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.IO;
+using Microsoft.Win32;
 
 namespace EntityTest
 {
@@ -29,6 +31,8 @@ namespace EntityTest
         {
             InitializeComponent();
         }
+        public static String ImageLoad { get; set; }
+
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
@@ -55,7 +59,7 @@ namespace EntityTest
                           o => o.Id,
                           (c, o) => new { c, o })
                     .OrderBy(x => x.c.Id)
-                    .Select(x => new { x.c.Id, x.c.Brand, x.o.CountryName }).ToList();
+                    .Select(x => new { x.c.Id, x.c.Brand, x.o.CountryName, x.c.Logo }).ToList();
                 dataGrid.ItemsSource = responses;
             }
         }
@@ -72,7 +76,8 @@ namespace EntityTest
                 context.CarBrands.Add(new CarBrand()
                 {
                     Brand = textBox1.Text,
-                    CountryProducingId = id
+                    CountryProducingId = id,
+                    Logo = GetPhoto(ImageLoad)
                 });
                 context.CarBrands.Add(new CarBrand()
                 {
@@ -84,27 +89,53 @@ namespace EntityTest
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        public  byte[] GetPhoto(string filePath)
         {
-         
-        }
+            FileStream stream = new FileStream(
+            filePath, FileMode.Open, FileAccess.Read);
+            BinaryReader reader = new BinaryReader(stream);
 
+            byte[] photo = reader.ReadBytes((int)stream.Length);
+
+            reader.Close();
+            stream.Close();
+
+            return photo;
+        } 
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             textBox.Clear();
             textBox1.Clear();
-        }
-
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-          
-
+            image.Source = null;
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-          
+            OpenFileDialog oDialog = new OpenFileDialog();
+            oDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+            Nullable<bool> result = oDialog.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    string fileName = oDialog.FileName;
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    bi.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    bi.UriSource = new Uri(fileName);
+                    bi.EndInit();
+                    image.Source = bi; 
+                    ImageLoad = oDialog.FileName; ;
+                }
+                catch
+                {
+                    MessageBox.Show("Сan not open the selected file",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
         }
     }
 }

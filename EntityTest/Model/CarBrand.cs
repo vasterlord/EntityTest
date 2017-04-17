@@ -28,8 +28,11 @@ namespace EntityTest.Model
             {
                 _brand = value;
             }
-        }  
+        } 
 
-         public CountryProducing CountryProducings { get; set; } 
+        [ConcurrencyCheck]
+        public byte[] Logo { get; set; } 
+
+        public CountryProducing CountryProducings { get; set; } 
     }
 }

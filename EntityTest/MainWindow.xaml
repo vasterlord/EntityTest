@@ -54,7 +54,7 @@
             </DataGrid.Effect>
         </DataGrid>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="67,177,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.Id,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="49" IsEnabled="False"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.CountryName, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.CountryName,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,184,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,225,0,0" TextWrapping="Wrap" Text="Country" VerticalAlignment="Top"/>
         <Button x:Name="button1" Content="New" HorizontalAlignment="Left" Margin="224,272,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
