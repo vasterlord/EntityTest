@@ -12,10 +12,8 @@ namespace EntityTest.Data
     public class Context : DbContext
     {
         public Context() : base("DBConnection")
-        {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<Context>());
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
-            Database.SetInitializer(new DropCreateDatabaseAlways<Context>());
+        { 
+
         }
 
         public DbSet<CountryProducing> CountryProducings { get; set; }
@@ -23,8 +21,9 @@ namespace EntityTest.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>(); 
-            Database.SetInitializer<Context>(null);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
+            modelBuilder.Conventions.Add(new DecimalPropertyConvention(15,2));
             base.OnModelCreating(modelBuilder);
         }
     }

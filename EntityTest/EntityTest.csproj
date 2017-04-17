@@ -134,6 +134,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\CarBrand.cs" />
     <Compile Include="Model\CountryProducing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

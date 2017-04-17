@@ -87,6 +87,7 @@ namespace EntityTest
                 var countryThird = new CountryProducing()
                 {
                     CountryName = textBox1.Text
+                   // Mark = 12 
                 };
                 context.CountryProducings.Add(countryThird);
                 context.SaveChanges(); 

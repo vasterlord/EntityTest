@@ -32,6 +32,6 @@ namespace EntityTest.Model
             {
                 _country = value;
             }
-        } 
+        }
     }
 }
