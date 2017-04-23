@@ -16,6 +16,7 @@ using EntityTest.Model;
 using EntityTest.Data;
 using System.Data.SqlClient;
 using System.Data.Entity;
+using System.Windows.Controls.DataVisualization.Charting;
 
 namespace EntityTest
 {
@@ -37,40 +38,51 @@ namespace EntityTest
         {
             using (var context = new Context())
             { 
-                var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
+                var countryProducing = context.CountryProducings.Include(car=>car.CarBrands).OrderBy(val => val.Id).ToList();
                 dataGrid.ItemsSource = countryProducing;
             }
         }
 
         private void Car_Model_Click(object sender, RoutedEventArgs e)
         {
-           // try
-           // {
+            // try
+            // {  
             using (var context = new Context())
             {
-                //var countryOne = new CountryProducing()
-                //{
-                //    CountryName = "Japan" 
-                //};
-                //var countryTwo = new CountryProducing()
-                //{
-                //    CountryName = "Germany"
-                //};
-                //var countryThird = new CountryProducing()
-                //{
-                //    CountryName = "France"
-                //}; 
-                //context.CountryProducings.Add(countryOne);
-                //context.CountryProducings.Add(countryTwo);
-                //context.CountryProducings.Add(countryThird);
-                //context.SaveChanges();   
-                int id = Convert.ToInt32(textBox.Text);
-                var updatedcountry = context.CountryProducings.FirstOrDefault(country => country.Id == id);
-                context.CountryProducings.Attach(updatedcountry);
-                context.Entry(updatedcountry).State = EntityState.Modified;
-                updatedcountry.CountryName = textBox1.Text;
+                List<CountryProducing> temp = new List<CountryProducing>(); 
+                var countryOne = new CountryProducing();
+                countryOne.CountryName = "Japan";
+                countryOne.Price = 22.4;
+
+                var countryTwo = new CountryProducing()
+                {
+                    CountryName = "Germany",
+                    Price = 10.1
+                };
+                var countryThird = new CountryProducing()
+                {
+                    CountryName = "France", 
+                    Price = 31.3
+                };
+                temp.Add(countryOne);
+                temp.Add(countryTwo);
+                temp.Add(countryThird);
+                foreach (var item in temp)
+                {
+                    context.CountryProducings.Add(item);
+                }
+                foreach (var item in context.CountryProducings)
+                {
+                    item.CarBrands = context.CarBrands.Where(s => s.CountryProducingId == item.Id).ToList();
+                }
                 context.SaveChanges();
-                var countryProducing = context.CountryProducings.OrderBy(val => val.Id).ToList();
+                //int id = Convert.ToInt32(textBox.Text);
+                //var updatedcountry = context.CountryProducings.FirstOrDefault(country => country.Id == id);
+                //context.CountryProducings.Attach(updatedcountry);
+                //context.Entry(updatedcountry).State = EntityState.Modified;
+                //updatedcountry.CountryName = textBox1.Text;
+                //context.SaveChanges();
+                var countryProducing = context.CountryProducings.Include(car => car.CarBrands).OrderBy(val => val.Id).ToList();
                 dataGrid.ItemsSource = countryProducing;
             }
             //}
@@ -125,7 +137,59 @@ namespace EntityTest
             CarBrandView car = new CarBrandView();
             car.ShowDialog();
         }
-    }
-    }
+
+        private void dataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            
+       }
+
+        private void dataGrid_Copy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void dataGrid_Copy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CountryProducing country = new CountryProducing();
+            if (dataGrid.SelectedItem != null)
+            {
+                country = (CountryProducing)dataGrid.SelectedItem;
+                using (var context = new Context())
+                {
+                    var responses = context.CarBrands
+                       .Join(context.CountryProducings,
+                             c => c.CountryProducingId,
+                             o => o.Id,
+                             (c, o) => new { c, o })
+                             .Where(t => t.c.CountryProducingId == country.Id)
+                       .OrderBy(x => x.c.Id)
+                       .Select(x => new { x.c.Id, x.c.Brand, x.o.CountryName, x.c.Logo }).ToList();
+                    dataGrid_Copy.ItemsSource = responses;
+                }
+            }
+           
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            ((BubbleSeries)mChart.Series[0]).ItemsSource =
+         new KeyValuePair<string, int>[]{
+        new KeyValuePair<string,int>("Project Manager", 12),
+        new KeyValuePair<string,int>("CEO", 25),
+        new KeyValuePair<string,int>("Software Engg.", 5),
+        new KeyValuePair<string,int>("Team Leader", 6),
+        new KeyValuePair<string,int>("Project Leader", 10),
+        new KeyValuePair<string,int>("Developer", 5) };
+        } 
+        
+        
+    } 
+
+ }
 
 

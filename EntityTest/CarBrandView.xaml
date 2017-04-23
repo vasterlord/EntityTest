@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EntityTest"
         mc:Ignorable="d"
         Title="CarBrandView"  Height="350" Width="525" ResizeMode="NoResize"
-        WindowStyle="ToolWindow" Loaded="Window_Loaded">
+        WindowStyle="ToolWindow" Loaded="Window_Loaded" >
     <Grid>
         <Button x:Name="Car_Model"
                 Width="119"

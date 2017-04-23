@@ -13,7 +13,8 @@ namespace EntityTest.Model
     {
         private string _brand;
         
-        public int Id { get; set; } 
+        public int Id { get; set; }  
+        
         public int CountryProducingId { get; set; }
         [ConcurrencyCheck] 
         [Index(IsUnique = true)]
@@ -31,7 +32,7 @@ namespace EntityTest.Model
         } 
 
         [ConcurrencyCheck]
-        public byte[] Logo { get; set; } 
+        public byte[] Logo { get; set; }
 
         public CountryProducing CountryProducings { get; set; } 
     }

@@ -24,6 +24,25 @@ namespace EntityTest.Data
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
             modelBuilder.Conventions.Add(new DecimalPropertyConvention(15,2));
+            //modelBuilder.Entity<CarBrand>().HasKey(f => f.Id);
+            //modelBuilder.Entity<CarBrand>()
+            //    .Map(m =>
+            //    {
+            //        m.Properties(b => new { b.Brand});
+            //        m.ToTable("CarBrand");
+            //    })
+            //    .Map(m =>
+            //    {
+            //        m.Properties(b => new { b.CountryProducingId });
+            //        m.ToTable("CountryProducing");
+                //});
+
+            //modelBuilder.Entity<CarBrand>().HasRequired(f => f.CountryProducings)
+            //    .WithMany(b => b.CarBrands)
+            //    .HasForeignKey(f => f.CountryProducingId);
+
+            //modelBuilder.Entity<CountryProducing>().HasKey(b => b.Id);
+            //modelBuilder.Entity<CountryProducing>().ToTable("CountryProducing");
             base.OnModelCreating(modelBuilder);
         }
     }

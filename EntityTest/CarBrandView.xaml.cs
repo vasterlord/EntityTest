@@ -76,8 +76,8 @@ namespace EntityTest
                 context.CarBrands.Add(new CarBrand()
                 {
                     Brand = textBox1.Text,
-                    CountryProducingId = id,
-                    Logo = GetPhoto(ImageLoad)
+                    CountryProducingId = id
+                    //,Logo = GetPhoto(ImageLoad)
                 });
                 context.CarBrands.Add(new CarBrand()
                 {

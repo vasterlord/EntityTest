@@ -1,17 +1,19 @@
-﻿<Window x:Class="EntityTest.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EntityTest"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" ResizeMode="NoResize"
+        xmlns:local="clr-namespace:EntityTest"   
+        xmlns:dataviews="http://mindfusion.eu/dataviews/wpf" x:Class="EntityTest.MainWindow"
+        mc:Ignorable="d" 
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        Title="MainWindow" Height="450" Width="766.5" ResizeMode="NoResize"
         WindowStyle="ToolWindow" Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="button"
-                Width="66"
-                Height="53"
-                Margin="441,256,0,0"
+                Width="102"
+                Height="24"
+                Margin="210,256,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Add"  Click="button_Click"/>
@@ -24,7 +26,7 @@
                 Click="Car_Model_Click"
                 Content="Work with car models" />
         <DataGrid x:Name="dataGrid"
-                  Width="497"
+                  Width="289"
                   Height="146"
                   Margin="10,10,0,0"
                   HorizontalAlignment="Left"
@@ -44,21 +46,66 @@
                   HorizontalGridLinesBrush="Violet"
                   HorizontalScrollBarVisibility="Visible"
                   IsReadOnly="True"
-                  ItemsSource="{Binding Countries}"
                   RowBackground="MistyRose"
                   SelectionMode="Single"
                   VerticalGridLinesBrush="Crimson"
-                  VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
+                  VerticalScrollBarVisibility="Visible" CurrentCellChanged="dataGrid_CurrentCellChanged" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.Effect>
                 <DropShadowEffect BlurRadius="100" Color="#FFECF036" />
             </DataGrid.Effect>
         </DataGrid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="67,177,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.Id,  UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="49" IsEnabled="False"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding ElementName=dataGrid, Path=SelectedItem.CountryName,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="67,177,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Id, ElementName=dataGrid, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="49" IsEnabled="False"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="67,218,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.CountryName, ElementName=dataGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,184,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,225,0,0" TextWrapping="Wrap" Text="Country" VerticalAlignment="Top"/>
-        <Button x:Name="button1" Content="New" HorizontalAlignment="Left" Margin="224,272,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Button x:Name="button2" Content="delete" HorizontalAlignment="Left" Margin="340,241,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
-        <Button x:Name="button3" Content="Button" HorizontalAlignment="Left" Margin="237,218,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <Button x:Name="button1" Content="New" HorizontalAlignment="Left" Margin="224,223,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="button2" Content="delete" HorizontalAlignment="Left" Margin="224,292,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <Button x:Name="button3" Content="Go to other" HorizontalAlignment="Left" Margin="224,185,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <DataGrid x:Name="dataGrid_Copy"
+            Width="289"
+            Height="95"
+            Margin="10,317,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            AlternatingRowBackground="LightBlue"
+            AutoGeneratingColumn="dataGrid_AutoGeneratingColumn"
+            Background="#FFD7F9F9"
+            BorderBrush="#FFFF0021"
+            BorderThickness="2"
+            CanUserAddRows="False"
+            CanUserReorderColumns="False"
+            CanUserResizeColumns="False"
+            CanUserSortColumns="False"
+            EnableColumnVirtualization="false"
+            EnableRowVirtualization="false"
+            Foreground="DarkOrchid"
+            HorizontalGridLinesBrush="Violet"
+            HorizontalScrollBarVisibility="Visible"
+            IsReadOnly="True"
+            RowBackground="MistyRose"
+            SelectionMode="Single"
+            VerticalGridLinesBrush="Crimson"
+            VerticalScrollBarVisibility="Visible" MouseDoubleClick="dataGrid_Copy_MouseDoubleClick" SelectionChanged="dataGrid_Copy_SelectionChanged">
+            <DataGrid.Effect>
+                <DropShadowEffect BlurRadius="100" Color="#FFECF036" />
+            </DataGrid.Effect>
+        </DataGrid>
+        <Button x:Name="button4" Content="Button" HorizontalAlignment="Left" Margin="625,367,0,0" VerticalAlignment="Top" Width="75" Click="button4_Click"/>
+        <chartingToolkit:Chart HorizontalAlignment="Left" Title="Test" LegendTitle="Testing" Foreground="Crimson" Background="DeepSkyBlue" Name="mChart" Margin="332,10,0,0" VerticalAlignment="Top" Height="335" Width="418">
+            <chartingToolkit:Chart.Series>
+                <chartingToolkit:BubbleSeries    
+                        Title="Experience"     
+                        IndependentValueBinding="{Binding Path=Key}"
+                        DependentValueBinding="{Binding Path=Value}"
+                        Margin="0,0,-118,0">
+                    <chartingToolkit:BubbleSeries.DataPointStyle>
+                        <Style TargetType="chartingToolkit:BubbleDataPoint">
+                            <Setter Property="Background" Value="Purple"/>
+                            <Setter Property="Foreground" Value="Crimson"/>
+                        </Style>
+                    </chartingToolkit:BubbleSeries.DataPointStyle>
+                </chartingToolkit:BubbleSeries> 
+            </chartingToolkit:Chart.Series>
+        </chartingToolkit:Chart>
     </Grid>
 </Window>

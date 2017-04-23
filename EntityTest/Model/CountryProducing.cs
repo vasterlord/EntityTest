@@ -17,7 +17,8 @@ namespace EntityTest.Model
         public int Id { get; set; } 
         /// <summary>
         /// Question: How disable auto sorting after create unique key
-        /// </summary>
+        /// </summary> 
+        
         [ConcurrencyCheck]
         [Index(IsUnique = true)]
         [Required(ErrorMessage = "Field can't be null")]
@@ -33,5 +34,13 @@ namespace EntityTest.Model
                 _country = value;
             }
         }
+        public CountryProducing()
+        {
+            CarBrands = new List<CarBrand>();
+        }
+
+        public double? Price { get; set; } 
+
+        public List<CarBrand> CarBrands { get; set; }
     }
 }
